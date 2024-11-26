@@ -152,6 +152,7 @@ class Properties(viewsets.ModelViewSet):
             queryset = queryset.filter(subletter=request.user)
         else:
             queryset = queryset.filter(expires_at__gte=timezone.now())
+            queryset = queryset.filter(is_published=True)
         if title:
             queryset = queryset.filter(title__icontains=title)
         if address:

@@ -98,7 +98,7 @@ class TestPolls(TestCase):
             poll.save()
 
         poll_1 = Poll.objects.get(question="How is your day")
-        self.id = poll_1.id
+        self.poll_id = poll_1.id
 
     @mock.patch("portal.serializers.get_user_clubs", mock_get_user_clubs)
     def test_create_poll(self):
@@ -123,11 +123,11 @@ class TestPolls(TestCase):
         payload = {
             "question": "New question",
         }
-        response = self.client.patch(f"/portal/polls/{self.id}/", payload)
+        response = self.client.patch(f"/portal/polls/{self.poll_id}/", payload)
         res_json = json.loads(response.content)
         # asserts that the update worked
-        self.assertEqual(self.id, res_json["id"])
-        self.assertEqual("New question", Poll.objects.get(id=self.id).question)
+        self.assertEqual(self.poll_id, res_json["id"])
+        self.assertEqual("New question", Poll.objects.get(id=self.poll_id).question)
 
     @mock.patch("portal.serializers.get_user_clubs", mock_get_user_clubs)
     @mock.patch("portal.logic.get_user_info", mock_get_user_info)
@@ -159,14 +159,14 @@ class TestPolls(TestCase):
     @mock.patch("portal.permissions.get_user_clubs", mock_get_user_clubs)
     @mock.patch("portal.logic.get_user_info", mock_get_user_info)
     def test_create_option(self):
-        payload_1 = {"poll": self.id, "choice": "yes!"}
-        payload_2 = {"poll": self.id, "choice": "no!"}
+        payload_1 = {"poll": self.poll_id, "choice": "yes!"}
+        payload_2 = {"poll": self.poll_id, "choice": "no!"}
         self.client.post("/portal/options/", payload_1)
         self.client.post("/portal/options/", payload_2)
         self.assertEqual(2, PollOption.objects.all().count())
         # asserts options were created and were placed to right poll
         for poll_option in PollOption.objects.all():
-            self.assertEqual(Poll.objects.get(id=self.id), poll_option.poll)
+            self.assertEqual(Poll.objects.get(id=self.poll_id), poll_option.poll)
         response = self.client.post("/portal/polls/browse/", {"id_hash": 1})
         res_json = json.loads(response.content)
         self.assertEqual(2, len(res_json[0]["options"]))
@@ -174,11 +174,11 @@ class TestPolls(TestCase):
     @mock.patch("portal.permissions.get_user_clubs", mock_get_user_clubs)
     @mock.patch("portal.views.get_user_clubs", mock_get_user_clubs)
     def test_update_option(self):
-        payload_1 = {"poll": self.id, "choice": "yes!"}
+        payload_1 = {"poll": self.poll_id, "choice": "yes!"}
         response = self.client.post("/portal/options/", payload_1)
         res_json = json.loads(response.content)
         self.assertEqual("yes!", PollOption.objects.get(id=res_json["id"]).choice)
-        payload_2 = {"poll": self.id, "choice": "no!"}
+        payload_2 = {"poll": self.poll_id, "choice": "no!"}
         # checks that poll's option was changed
         self.client.patch(f'/portal/options/{res_json["id"]}/', payload_2)
         self.assertEqual("no!", PollOption.objects.get(id=res_json["id"]).choice)
@@ -201,11 +201,11 @@ class TestPolls(TestCase):
     @mock.patch("portal.permissions.get_user_clubs", mock_get_user_clubs)
     @mock.patch("portal.logic.get_user_info", mock_get_user_info)
     def test_more_than_five_options(self):
-        payload_1 = {"poll": self.id, "choice": "1"}
-        payload_2 = {"poll": self.id, "choice": "2"}
-        payload_3 = {"poll": self.id, "choice": "3"}
-        payload_4 = {"poll": self.id, "choice": "4"}
-        payload_5 = {"poll": self.id, "choice": "5"}
+        payload_1 = {"poll": self.poll_id, "choice": "1"}
+        payload_2 = {"poll": self.poll_id, "choice": "2"}
+        payload_3 = {"poll": self.poll_id, "choice": "3"}
+        payload_4 = {"poll": self.poll_id, "choice": "4"}
+        payload_5 = {"poll": self.poll_id, "choice": "5"}
         self.client.post("/portal/options/", payload_1)
         self.client.post("/portal/options/", payload_2)
         self.client.post("/portal/options/", payload_3)
@@ -214,17 +214,17 @@ class TestPolls(TestCase):
         self.assertEqual(5, PollOption.objects.all().count())
         # asserts options were created and were placed to right poll
         for poll_option in PollOption.objects.all():
-            self.assertEqual(Poll.objects.get(id=self.id), poll_option.poll)
+            self.assertEqual(Poll.objects.get(id=self.poll_id), poll_option.poll)
         response = self.client.post("/portal/polls/browse/", {"id_hash": 1})
         res_json = json.loads(response.content)
         self.assertEqual(5, len(res_json[0]["options"]))
         # adding more than 5 options to same poll should not be allowed
-        payload_6 = {"poll": self.id, "choice": "6"}
+        payload_6 = {"poll": self.poll_id, "choice": "6"}
         response = self.client.post("/portal/options/", payload_6)
         self.assertEqual(5, PollOption.objects.all().count())
 
     def test_option_vote_view(self):
-        response = self.client.get(f"/portal/polls/{self.id}/option_view/")
+        response = self.client.get(f"/portal/polls/{self.poll_id}/option_view/")
         res_json = json.loads(response.content)
         self.assertEqual("pennlabs", res_json["club_code"])
         # test that options key is in response

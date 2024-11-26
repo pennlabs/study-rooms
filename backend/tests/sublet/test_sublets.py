@@ -49,6 +49,7 @@ class TestSublets(TestCase):
             "start_date": "3000-04-09",
             "end_date": "3000-08-07",
             "amenities": ["Amenity1", "Amenity2"],
+            "is_published": True,
         }
         response = self.client.post("/sublet/properties/", payload)
         res_json = json.loads(response.content)
@@ -65,6 +66,7 @@ class TestSublets(TestCase):
             "start_date",
             "end_date",
             "amenities",
+            "is_published",
         ]
         [self.assertEqual(payload[key], res_json[key]) for key in match_keys]
         self.assertIn("id", res_json)
@@ -120,7 +122,7 @@ class TestSublets(TestCase):
         response = self.client.post("/sublet/properties/", payload)
         old_id = json.loads(response.content)["id"]
         # Update the sublet using the serializer
-        data = {"title": "New Title", "beds": 3, "amenities": ["Amenity1"]}
+        data = {"title": "New Title", "beds": 3, "amenities": ["Amenity1"], "address": ""}
         response = self.client.patch(f"/sublet/properties/{str(old_id)}/", data)
         res_json = json.loads(response.content)
         self.assertEqual(3, res_json["beds"])
@@ -128,6 +130,15 @@ class TestSublets(TestCase):
         self.assertEqual("New Title", Sublet.objects.get(id=old_id).title)
         self.assertEqual("New Title", res_json["title"])
         self.assertEqual(1, len(res_json["amenities"]))
+        payload["address"] = ""
+        payload["is_published"] = True
+        response = self.client.patch(f"/sublet/properties/{str(old_id)}/", payload)
+        self.assertEqual(400, response.status_code)
+        payload["is_published"] = False
+        response = self.client.patch(f"/sublet/properties/{str(old_id)}/", payload)
+        self.assertEqual(200, response.status_code)
+        response = self.client.patch(f"/sublet/properties/{str(old_id)}/", {"is_published": True})
+        self.assertEqual(400, response.status_code)
 
     def test_browse_sublets(self):
         response = self.client.get("/sublet/properties/")
@@ -146,6 +157,7 @@ class TestSublets(TestCase):
             "start_date": "3000-04-09",
             "end_date": "3000-08-07",
             "amenities": ["Amenity1", "Amenity2"],
+            "is_published": True,
         }
         response = self.client.post("/sublet/properties/", payload)
         old_id = json.loads(response.content)["id"]
@@ -172,6 +184,7 @@ class TestSublets(TestCase):
             "start_date": "3000-04-09",
             "end_date": "3000-08-07",
             "amenities": ["Amenity1", "Amenity2"],
+            "is_published": True,
         }
         response = self.client.post("/sublet/properties/", payload)
         old_id = json.loads(response.content)["id"]

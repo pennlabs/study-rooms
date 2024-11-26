@@ -33,6 +33,7 @@ class Sublet(models.Model):
     sublettees = models.ManyToManyField(
         User, through=Offer, related_name="sublets_offered", blank=True
     )
+    is_published = models.BooleanField(default=False)
     favorites = models.ManyToManyField(User, related_name="sublets_favorited", blank=True)
     amenities = models.ManyToManyField(Amenity, blank=True)
 
@@ -42,12 +43,12 @@ class Sublet(models.Model):
     baths = models.DecimalField(max_digits=3, decimal_places=1, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     external_link = models.URLField(max_length=255, null=True, blank=True)
-    price = models.IntegerField()
+    price = models.IntegerField(null=True, blank=True)
     negotiable = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    expires_at = models.DateTimeField()
-    start_date = models.DateField()
-    end_date = models.DateField()
+    expires_at = models.DateTimeField(null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.title} by {self.subletter}"

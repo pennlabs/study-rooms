@@ -59,7 +59,7 @@ class TestPosts(TestCase):
         post_1 = Post.objects.all().first()
         post_1.status = Post.STATUS_APPROVED
         post_1.save()
-        self.id = post_1.id
+        self.post_id = post_1.id
 
     @mock.patch("portal.serializers.get_user_clubs", mock_get_user_clubs)
     def test_create_post(self):
@@ -103,10 +103,10 @@ class TestPosts(TestCase):
     @mock.patch("portal.permissions.get_user_clubs", mock_get_user_clubs)
     def test_update_post(self):
         payload = {"title": "New Test Title 3"}
-        response = self.client.patch(f"/portal/posts/{self.id}/", payload)
+        response = self.client.patch(f"/portal/posts/{self.post_id}/", payload)
         res_json = json.loads(response.content)
-        self.assertEqual(self.id, res_json["id"])
-        self.assertEqual("New Test Title 3", Post.objects.get(id=self.id).title)
+        self.assertEqual(self.post_id, res_json["id"])
+        self.assertEqual("New Test Title 3", Post.objects.get(id=self.post_id).title)
         # since the user is not an admin, approved should be set to false after update
         self.assertEqual(Post.STATUS_DRAFT, res_json["status"])
 
@@ -116,9 +116,9 @@ class TestPosts(TestCase):
         admin = User.objects.create_superuser("admin@upenn.edu", "admin", "admin")
         self.client.force_authenticate(user=admin)
         payload = {"title": "New Test Title 3"}
-        response = self.client.patch(f"/portal/posts/{self.id}/", payload)
+        response = self.client.patch(f"/portal/posts/{self.post_id}/", payload)
         res_json = json.loads(response.content)
-        self.assertEqual(self.id, res_json["id"])
+        self.assertEqual(self.post_id, res_json["id"])
         self.assertEqual(Post.STATUS_APPROVED, res_json["status"])
 
     @mock.patch("portal.serializers.get_user_clubs", mock_get_user_clubs)

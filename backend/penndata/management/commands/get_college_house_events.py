@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
     def scrape_details(self, event_url):
         try:
-            resp = requests.get(event_url)
+            resp = requests.get(event_url, verify=False)
         except ConnectionError:
             print("Error:", ConnectionError)
             return None
@@ -86,7 +86,7 @@ class Command(BaseCommand):
 
     def scrape_calendar_page(self, calendar_url, event_type):
         try:
-            resp = requests.get(calendar_url)
+            resp = requests.get(calendar_url, verify=False)
         except ConnectionError:
             print("Error:", ConnectionError)
             return

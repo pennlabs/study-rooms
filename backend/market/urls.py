@@ -2,48 +2,53 @@ from django.urls import path
 from rest_framework import routers
 
 from market.views import (
-    Amenities,
+    Categories,
     CreateImages,
     DeleteImage,
     Favorites,
+    Items,
     Offers,
-    Properties,
+    Sublets,
+    Tags,
     UserFavorites,
     UserOffers,
 )
 
 
-app_name = "sublet"
+app_name = "market"
 
 router = routers.DefaultRouter()
-router.register(r"properties", Properties, basename="properties")
+router.register(r"items", Items, basename="items")
+router.register(r"sublets", Sublets, basename="sublets")
 
 additional_urls = [
     # List of all amenities
-    path("amenities/", Amenities.as_view(), name="amenities"),
+    path("tags/", Tags.as_view(), name="tags"),
+    # List of all categories
+    path("categories/", Categories.as_view(), name="categories"),
     # All favorites for user
     path("favorites/", UserFavorites.as_view(), name="user-favorites"),
     # All offers made by user
     path("offers/", UserOffers.as_view(), name="user-offers"),
     # Favorites
-    # post: add a sublet to the user's favorites
-    # delete: remove a sublet from the user's favorites
+    # post: add an item to the user's favorites
+    # delete: remove an item from the user's favorites
     path(
-        "properties/<sublet_id>/favorites/",
+        "items/<item_id>/favorites/",
         Favorites.as_view({"post": "create", "delete": "destroy"}),
     ),
     # Offers
-    # get: list all offers for a sublet
-    # post: create an offer for a sublet
-    # delete: delete an offer for a sublet
+    # get: list all offers for an item
+    # post: create an offer for an item
+    # delete: delete an offer for an item
     path(
-        "properties/<sublet_id>/offers/",
+        "items/<item_id>/offers/",
         Offers.as_view({"get": "list", "post": "create", "delete": "destroy"}),
     ),
     # Image Creation
-    path("properties/<sublet_id>/images/", CreateImages.as_view()),
+    path("items/<item_id>/images/", CreateImages.as_view()),
     # Image Deletion
-    path("properties/images/<image_id>/", DeleteImage.as_view()),
+    path("items/images/<image_id>/", DeleteImage.as_view()),
 ]
 
 urlpatterns = router.urls + additional_urls

@@ -1,0 +1,42 @@
+[
+    {
+        "item": {
+            "tags": [
+                "New"
+            ],
+            "category": "Sublet",
+            "title": "Cira Green Sublet",
+            "description": "Fully furnished 3-bedroom apartment available for sublet with all amenities included.",
+            "external_link": "https://example.com/cira-green",
+            "price": 1350.0,
+            "negotiable": false,
+            "created_at": "2024-11-13T20:14:34.604238-05:00",
+            "expires_at": "2025-12-12T00:00:00-05:00"
+        },
+        "address": "Cira Green, Philadelphia, PA",
+        "beds": 3.0,
+        "baths": 1.0,
+        "start_date": "2024-01-01T00:00:00-05:00",
+        "end_date": "2025-05-31T00:00:00-04:00"
+    },
+    {
+        "item": {
+            "tags": [
+                "New"
+            ],
+            "category": "Sublet",
+            "title": "Rodin Quad",
+            "description": "Fully furnished 4-bedroom apartment available for sublet with all amenities included.",
+            "external_link": "https://example.com/rodin-quad",
+            "price": 1350.0,
+            "negotiable": false,
+            "created_at": "2024-11-13T20:14:34.604238-05:00",
+            "expires_at": "2025-12-12T00:00:00-05:00"
+        },
+        "address": "3901 Locust Walk, Philadelphia, PA",
+        "beds": 4.0,
+        "baths": 1.0,
+        "start_date": "2024-01-01T00:00:00-05:00",
+        "end_date": "2025-05-31T00:00:00-04:00"
+    }
+]

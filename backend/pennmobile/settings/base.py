@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "options.apps.OptionsConfig",
     "sublet",
     "phonenumber_field",
+    "market",
 ]
 
 MIDDLEWARE = [

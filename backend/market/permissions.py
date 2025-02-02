@@ -13,32 +13,47 @@ class IsSuperUser(permissions.BasePermission):
         return request.user.is_superuser
 
 
+class ItemOwnerPermission(permissions.BasePermission):
+    """
+    Custom permission to allow the owner of a Item to edit or delete it.
+    """
+
+    def has_permission(self, request, view):
+        return request.user.is_authenticated
+
+    def has_object_permission(self, request, view, obj):
+        # Check if the user is the owner of the Item.
+        return request.method in permissions.SAFE_METHODS or obj.seller == request.user
+
+
 class SubletOwnerPermission(permissions.BasePermission):
     """
-    Custom permission to allow the owner of a Sublet to edit or delete it.
+    Custom permission to allow the owner of a Item to edit or delete it.
     """
 
     def has_permission(self, request, view):
         return request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
-        # Check if the user is the owner of the Sublet.
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return obj.subletter == request.user
+        # Check if the user is the owner of the Item.
+        return request.method in permissions.SAFE_METHODS or obj.item.seller == request.user
 
 
-class SubletImageOwnerPermission(permissions.BasePermission):
+class ItemImageOwnerPermission(permissions.BasePermission):
     """
-    Custom permission to allow the owner of a SubletImage to edit or delete it.
+    Custom permission to allow the owner of a ItemImage to edit or delete it.
     """
 
     def has_permission(self, request, view):
         return request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
-        # Check if the user is the owner of the Sublet.
-        return request.method in permissions.SAFE_METHODS or obj.sublet.subletter == request.user
+        # Check if the user is the owner of the Item.
+        return (
+            request.method in permissions.SAFE_METHODS
+            or (hasattr(obj, "seller") and obj.seller == request.user)
+            or (hasattr(obj, "item") and obj.item.seller == request.user)
+        )
 
 
 class OfferOwnerPermission(permissions.BasePermission):
@@ -50,8 +65,4 @@ class OfferOwnerPermission(permissions.BasePermission):
         return request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            # Check if the user owns the sublet when getting list
-            return obj.subletter == request.user
-        # This is redundant, here for safety
-        return obj.user == request.user
+        return request.method in permissions.SAFE_METHODS or obj.user == request.user

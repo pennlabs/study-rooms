@@ -34,6 +34,9 @@ Making git blame [correct](https://github.com/pennlabs/penn-mobile/pull/287) (_o
 Setting up precommit (_optional_):
 - `pipenv run pre-commit install`
 
+### Nix Development Environment
+If you have Nix installed, you can use `nix develop` in `./backend` to set up a currently partial development environment for you. Note commands such as `pipenv run python manage.py migrate` become `python manage.py migrate` as `nix develop` puts one's shell directly in the development environment and this is currently only configured for x84_64 Linux. It does work on WSL. I have no idea if it works on MacOS.
+
 ## Creating Users
 
 To create users, you first have to create a main superuser.

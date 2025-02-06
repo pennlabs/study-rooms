@@ -1,0 +1,187 @@
+{
+  "nodes": {
+    "alt-profanity-check": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738231958,
+        "narHash": "sha256-B6YGVwWG8dG7h8V1YZTihr+X2FgSnUe9xnQMsCa6FFU=",
+        "owner": "dimitrismistriotis",
+        "repo": "alt-profanity-check",
+        "rev": "98979417110a98eee9e42842665dfe9339dd6aee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dimitrismistriotis",
+        "repo": "alt-profanity-check",
+        "type": "github"
+      }
+    },
+    "apns2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650154237,
+        "narHash": "sha256-9paB/EFSjahbcrWO5nE7/jBHhG1yoqdjMWv0Bg0jKps=",
+        "owner": "Pr0Ger",
+        "repo": "PyAPNs2",
+        "rev": "aac4bd3494670b8090774cb051798cfac5e0ed6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Pr0Ger",
+        "repo": "PyAPNs2",
+        "type": "github"
+      }
+    },
+    "django-labs-accounts": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "pyproject-nix": "pyproject-nix"
+      },
+      "locked": {
+        "lastModified": 1738808119,
+        "narHash": "sha256-Y3yfMB/ZwXts8VM4rsuHfH7IosKcvxI99DeECPjxdm0=",
+        "owner": "clay53",
+        "repo": "django-labs-accounts",
+        "rev": "bfee2a2f419670527f2d44464374ea5220c51cc1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clay53",
+        "repo": "django-labs-accounts",
+        "type": "github"
+      }
+    },
+    "django-runtime-options": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1738807063,
+        "narHash": "sha256-1r7JaNxFY6TFgWuxR5qZzkQqHuiTpNIDjVIrCtY+4nE=",
+        "owner": "clay53",
+        "repo": "django-runtime-options",
+        "rev": "84470a11dec008aa5a51306a811f27b048cbd6a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clay53",
+        "repo": "django-runtime-options",
+        "type": "github"
+      }
+    },
+    "hyper": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1610476610,
+        "narHash": "sha256-W95xzka0voIQ5oL4fgqaBXA1owXT5X70KRtnTUTWqYU=",
+        "owner": "python-hyper",
+        "repo": "hyper",
+        "rev": "b77e758f472f00b098481e3aa8651b0808524d84",
+        "type": "github"
+      },
+      "original": {
+        "owner": "python-hyper",
+        "repo": "hyper",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1738734093,
+        "narHash": "sha256-UEYOKfXXKU49fR7dGB05As0s2pGbLK4xDo48Qtdm7xs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5b2753b0356d1c951d7a3ef1d086ba5a71fff43c",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1738734093,
+        "narHash": "sha256-UEYOKfXXKU49fR7dGB05As0s2pGbLK4xDo48Qtdm7xs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5b2753b0356d1c951d7a3ef1d086ba5a71fff43c",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1738776903,
+        "narHash": "sha256-itdvapLd6cm8GcObeDuHKdoq4QXuqcxxKSAurWLKN88=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dd1519d642dec465aceae674c96d4cee288dc910",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dd1519d642dec465aceae674c96d4cee288dc910",
+        "type": "github"
+      }
+    },
+    "pyproject-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "django-labs-accounts",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1738204167,
+        "narHash": "sha256-J5M2sj3x4ocM93shScT/3Z4XWHZhwwW1NyQK+C+8Mys=",
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "rev": "0d9f4b90cee1b5c5d6c142ef22de1e246e003ccc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "type": "github"
+      }
+    },
+    "pyproject-nix_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1738204167,
+        "narHash": "sha256-J5M2sj3x4ocM93shScT/3Z4XWHZhwwW1NyQK+C+8Mys=",
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "rev": "0d9f4b90cee1b5c5d6c142ef22de1e246e003ccc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "alt-profanity-check": "alt-profanity-check",
+        "apns2": "apns2",
+        "django-labs-accounts": "django-labs-accounts",
+        "django-runtime-options": "django-runtime-options",
+        "hyper": "hyper",
+        "nixpkgs": "nixpkgs_3",
+        "pyproject-nix": "pyproject-nix_2"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
